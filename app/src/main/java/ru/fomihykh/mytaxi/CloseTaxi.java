@@ -140,5 +140,5 @@ public class CloseTaxi extends AppCompatActivity {
         finish();
     }
 
-    public void addData()
+
 }
