@@ -126,10 +126,10 @@ public class CloseTaxi extends AppCompatActivity {
         int afterNonCash = pref.getInt("nonCash",0);
         int afterMileage = pref.getInt("mileage",0);
 
-        Date instanse = new Date();
+        Date instance = new Date();
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-        String date = formater.format(instanse);
+        String date = formater.format(instance);
 
 
 

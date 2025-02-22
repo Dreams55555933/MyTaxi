@@ -11,12 +11,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_DATE = "date";
-    public static final String COLUMN_CASH_BEFORE = "cashBefore";
-    public static final String COLUMN_NON_CASH_BEFORE = "nonCashBefore";
-    public static final String COLUMN_MILEAGE_BEFORE = "mileageBefore";
-    public static final String COLUMN_CASH_AFTER = "cashAfter";
-    public static final String COLUMN_NON_CASH_AFTER = "nonCashAfter";
-    public static final String COLUMN_MILEAGE_AFTER = "mileageAfter";
     public static final String COLUMN_PROFIT = "profit";
     public static final String COLUMN_NP = "np";
     public static final String COLUMN_GSM = "gsm";
@@ -27,12 +21,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_DATE + " TEXT, " +
-                    COLUMN_CASH_BEFORE + " INTEGER, " +
-                    COLUMN_NON_CASH_BEFORE + " INTEGER, " +
-                    COLUMN_MILEAGE_BEFORE + " INTEGER, " +
-                    COLUMN_CASH_AFTER + " INTEGER, " +
-                    COLUMN_NON_CASH_AFTER + "INTEGER, " +
-                    COLUMN_MILEAGE_AFTER + " INTEGER, " +
                     COLUMN_PROFIT + " INTEGER, " +
                     COLUMN_NP + " INTEGER, " +
                     COLUMN_GSM + " INTEGER, " +
