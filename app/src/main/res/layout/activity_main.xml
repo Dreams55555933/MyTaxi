@@ -5,18 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="40dp"
-    android:paddingHorizontal="10dp"
     tools:context=".MainActivity">
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="420dp"
+        app:layout_constraintBottom_toTopOf="@+id/addView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/addView"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/addView"
         android:layout_width="match_parent"
@@ -27,26 +26,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listView">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Прибыль: 0."/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="НП: 0."/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="ГСМ: 0."/>
 
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -59,7 +39,22 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/otherLoss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="НП: 0."
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gsmView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ГСМ: 0."
+                android:textSize="20sp" />
             <TextView
                 android:id="@+id/startCashText"
                 android:layout_width="wrap_content"
@@ -67,10 +62,6 @@
                 android:textSize="20sp"
                 android:textAlignment="center"
                 android:text="Наличка: 0."/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/startNonCashText"
                 android:layout_width="wrap_content"
@@ -78,10 +69,6 @@
                 android:textSize="20sp"
                 android:textAlignment="center"
                 android:text="Безнал: 0."/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/startMiletageText"
                 android:layout_width="wrap_content"
@@ -89,7 +76,9 @@
                 android:textSize="20sp"
                 android:textAlignment="center"
                 android:text="Пробег: 0"/>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -107,7 +96,17 @@
                 android:backgroundTint="@color/black"
                 android:onClick="end"
                 android:text="Закрыть смену"/>
+            <Button
+                android:id="@+id/addLoss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/black"
+                android:onClick="addLoss"
+                android:text="Добавить расход"/>
+
         </LinearLayout>
+
 
 
 

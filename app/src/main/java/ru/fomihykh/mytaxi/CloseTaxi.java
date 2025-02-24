@@ -1,6 +1,7 @@
 package ru.fomihykh.mytaxi;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,10 @@ public class CloseTaxi extends AppCompatActivity {
     EditText cashViewText;
     EditText nonCashViewText;
     EditText mileageViewText;
+    TextView profitTextView;
+    private DataBaseHelper dbHelper;
+    int profit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,14 @@ public class CloseTaxi extends AppCompatActivity {
         cashViewText = findViewById(R.id.cash);
         nonCashViewText = findViewById(R.id.nonCash);
         mileageViewText = findViewById(R.id.mileage);
+
+        EditText npEditText = findViewById(R.id.np);
+        EditText gsmEditText = findViewById(R.id.gsm);
+
+        int np = pref.getInt("other_loss",0);
+        int gsm = pref.getInt("gsm",0);
+        npEditText.setText(String.valueOf(np));
+        gsmEditText.setText(String.valueOf(gsm));
 
 
 
@@ -60,9 +73,9 @@ public class CloseTaxi extends AppCompatActivity {
                     int nonCashAfter = Integer.parseInt(nonCashViewText.getText().toString());
                     int resultNonCash = nonCashAfter-nonCashBefore;
 
-                    int result = resultCash+resultNonCash;
-                    TextView profitTextView = findViewById(R.id.profit);
-                    profitTextView.setText("Прибыль: "+result);
+                    profit = resultCash+resultNonCash;
+                    profitTextView = findViewById(R.id.profit);
+                    profitTextView.setText("Прибыль: "+profit);
                 }
             }
         });
@@ -88,9 +101,9 @@ public class CloseTaxi extends AppCompatActivity {
                     int nonCashAfter = Integer.parseInt(nonCashViewText.getText().toString());
                     int resultNonCash = nonCashAfter-nonCashBefore;
 
-                    int result = resultCash+resultNonCash;
+                    profit = resultCash+resultNonCash;
                     TextView profitTextView = findViewById(R.id.profit);
-                    profitTextView.setText("Прибыль: "+result+"р.");
+                    profitTextView.setText("Прибыль: "+profit+"р.");
                 }
             }
         });
@@ -119,26 +132,34 @@ public class CloseTaxi extends AppCompatActivity {
     }
 
     public void closeTaxi(View view) {
-        SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = pref.edit();
-
-        int afterCash = pref.getInt("cash",0);
-        int afterNonCash = pref.getInt("nonCash",0);
-        int afterMileage = pref.getInt("mileage",0);
+        EditText npEditText = findViewById(R.id.np);
+        EditText gsmEditText = findViewById(R.id.gsm);
+        EditText commentEditText = findViewById(R.id.comment);
 
         Date instance = new Date();
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         String date = formater.format(instance);
+        int np = Integer.parseInt(npEditText.getText().toString());
+        int gsm = Integer.parseInt(gsmEditText.getText().toString());
+        String comment = commentEditText.getText().toString();
 
+        SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = pref.edit();
+        prefEditor.clear().apply();
 
-
-
+        dbHelper = new DataBaseHelper(this);
+        dbHelper.addData(date,profit,np,gsm,comment);
+        finish();
     }
 
     public void cansel(View view) {
         finish();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
+    }
 }

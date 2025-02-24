@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +24,8 @@ public class StartTaxi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.taxi_start);
+
+
     }
 
     public void startTaxi(View view) {

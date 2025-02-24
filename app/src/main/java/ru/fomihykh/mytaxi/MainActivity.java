@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,8 +17,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity implements OnDataSaveListener{
+    DataBaseHelper dbHelper;
 
 
 
@@ -32,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        dbHelper = new DataBaseHelper(this);
+        ArrayList<String>taxis = dbHelper.readData();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,taxis);
+        ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(adapter);
         SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
 
         Button startButtonView = findViewById(R.id.startButton);
@@ -40,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
         TextView startNonCashTextView = findViewById(R.id.startNonCashText);
         TextView startMileageTextView = findViewById(R.id.startMiletageText);
         TextView infoStartTaxiText = findViewById(R.id.infoStartTaxiText);
+        TextView addLossTextView = findViewById(R.id.addLoss);
+        TextView lossTextView = findViewById(R.id.otherLoss);
+        TextView gsmTextView = findViewById(R.id.gsmView);
+
+        TextView gsmView = findViewById(R.id.gsmView);
+        int gsmValue = pref.getInt("gsm",0);
+        String gsmText = "Расходы на бензин: "+gsmValue;
+        gsmView.setText(gsmText);
+        //Проверка
+        TextView otherView = findViewById(R.id.otherLoss);
+        int otherValue = pref.getInt("other_loss",0);
+        String otherText = "Остальные расходы: "+otherValue;
+        otherView.setText(String.valueOf(otherText));
 
         boolean isStartTaxi = pref.getBoolean("isStartTaxi",false);
         if (isStartTaxi){
@@ -49,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
             startNonCashTextView.setVisibility(View.VISIBLE);
             startMileageTextView.setVisibility(View.VISIBLE);
             infoStartTaxiText.setVisibility(View.VISIBLE);
+            addLossTextView.setVisibility(View.VISIBLE);
+            lossTextView.setVisibility(View.VISIBLE);
+            gsmTextView.setVisibility(View.VISIBLE);
 
             int cash = pref.getInt("cash",0);
             int nonCash = pref.getInt("nonCash",0);
@@ -68,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
             startNonCashTextView.setVisibility(View.GONE);
             startMileageTextView.setVisibility(View.GONE);
             infoStartTaxiText.setVisibility(View.GONE);
+            addLossTextView.setVisibility(View.GONE);
+            lossTextView.setVisibility(View.GONE);
+            gsmTextView.setVisibility(View.GONE);
         }
     }
 
@@ -79,5 +107,32 @@ public class MainActivity extends AppCompatActivity {
     public void end(View view) {
         Intent intent = new Intent(this, CloseTaxi.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
+    }
+
+    public void addLoss(View view) {
+        DialogAddLoss dialogAddLoss = new DialogAddLoss();
+        dialogAddLoss.setDataSaveListener(MainActivity.this);
+        dialogAddLoss.show(getSupportFragmentManager(),"dialog");
+    }
+
+    @Override
+    public void onDataSaved() {
+        //Проверка
+        SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
+        TextView gsmView = findViewById(R.id.gsmView);
+        int gsmValue = pref.getInt("gsm",0);
+        String gsmText = "Расходы на бензин: "+gsmValue;
+        gsmView.setText(gsmText);
+        //Проверка
+        TextView otherView = findViewById(R.id.otherLoss);
+        int otherValue = pref.getInt("other_loss",0);
+        String otherText = "Остальные расходы: "+otherValue;
+        otherView.setText(String.valueOf(otherText));
     }
 }
