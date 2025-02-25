@@ -37,7 +37,7 @@ public class CloseTaxi extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
 
-        cashViewText = findViewById(R.id.cash);
+        cashViewText = findViewById(R.id.cashClose);
         nonCashViewText = findViewById(R.id.nonCash);
         mileageViewText = findViewById(R.id.mileage);
 
@@ -135,6 +135,7 @@ public class CloseTaxi extends AppCompatActivity {
         EditText npEditText = findViewById(R.id.np);
         EditText gsmEditText = findViewById(R.id.gsm);
         EditText commentEditText = findViewById(R.id.comment);
+        EditText mileagEditText = findViewById(R.id.mileage);
 
         Date instance = new Date();
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -144,12 +145,16 @@ public class CloseTaxi extends AppCompatActivity {
         int gsm = Integer.parseInt(gsmEditText.getText().toString());
         String comment = commentEditText.getText().toString();
 
+
         SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
+        int mileage = pref.getInt("mileage",0);
+        int afterMileage = Integer.parseInt(mileagEditText.getText().toString());
+        int resultMileage = afterMileage-mileage;
         SharedPreferences.Editor prefEditor = pref.edit();
         prefEditor.clear().apply();
 
         dbHelper = new DataBaseHelper(this);
-        dbHelper.addData(date,profit,np,gsm,comment);
+        dbHelper.addData(date,profit,np,gsm,comment,mileage);
         finish();
     }
 

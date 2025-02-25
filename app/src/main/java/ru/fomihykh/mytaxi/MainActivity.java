@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnDataSaveListener{
     DataBaseHelper dbHelper;
@@ -40,7 +41,13 @@ public class MainActivity extends AppCompatActivity implements OnDataSaveListene
         ArrayList<String>taxis = dbHelper.readData();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,taxis);
         ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+
+        List<Taxi>taxis1 = dbHelper.getTaxis();
+        TaxiAdapter taxiAdapter = new TaxiAdapter(this,R.layout.taxi_list,taxis1);
+
+
+        listView.setAdapter(taxiAdapter);
+        listView.setSelection(adapter.getCount() - 1);
         SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
 
         Button startButtonView = findViewById(R.id.startButton);
@@ -55,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements OnDataSaveListene
 
         TextView gsmView = findViewById(R.id.gsmView);
         int gsmValue = pref.getInt("gsm",0);
-        String gsmText = "Расходы на бензин: "+gsmValue;
-        gsmView.setText(gsmText);
+        String gsmText = "Расходы на бензин: <font color='red'>"+gsmValue+"</font>.";
+        gsmView.setText(Html.fromHtml(gsmText,Html.FROM_HTML_MODE_LEGACY));
         //Проверка
         TextView otherView = findViewById(R.id.otherLoss);
         int otherValue = pref.getInt("other_loss",0);
-        String otherText = "Остальные расходы: "+otherValue;
-        otherView.setText(String.valueOf(otherText));
+        String otherText = "Остальные расходы: <font color='red'>"+otherValue+"</font>.";
+        otherView.setText(Html.fromHtml(otherText,Html.FROM_HTML_MODE_LEGACY));
 
         boolean isStartTaxi = pref.getBoolean("isStartTaxi",false);
         if (isStartTaxi){
@@ -127,12 +134,13 @@ public class MainActivity extends AppCompatActivity implements OnDataSaveListene
         SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
         TextView gsmView = findViewById(R.id.gsmView);
         int gsmValue = pref.getInt("gsm",0);
-        String gsmText = "Расходы на бензин: "+gsmValue;
-        gsmView.setText(gsmText);
+        String gsmText = "Расходы на бензин: <font color='red'>"+gsmValue+"</font>.";
+        gsmView.setText(Html.fromHtml(gsmText,Html.FROM_HTML_MODE_LEGACY));
+
         //Проверка
         TextView otherView = findViewById(R.id.otherLoss);
         int otherValue = pref.getInt("other_loss",0);
-        String otherText = "Остальные расходы: "+otherValue;
-        otherView.setText(String.valueOf(otherText));
+        String otherText = "Остальные расходы: <font color='red'>"+otherValue+"</font>.";
+        otherView.setText(Html.fromHtml(otherText,Html.FROM_HTML_MODE_LEGACY));
     }
 }

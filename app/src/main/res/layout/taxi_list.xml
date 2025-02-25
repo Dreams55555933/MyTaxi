@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_column="3"
+    android:stretchColumns="*"
+    android:orientation="vertical">
+    <TableRow>
+        <TextView
+            android:id="@+id/textProfit"
+            android:text="Прибыль: "
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/valueProfit"
+            android:text="122"
+            android:textColor="#008000"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/textMileage"
+            android:text="Пробег: "
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/valueMileage"
+            android:text="122"
+            android:textColor="#0000ff"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/textGsm"
+            android:text="Расход бенз.: "
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/valueGsm"
+            android:text="122"
+            android:textColor="#ff0000"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/textLoss"
+            android:text="Расходы ост.: "
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/valueLoss"
+            android:text="122"
+            android:textColor="#ff0000"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/valueDate"
+            android:layout_weight="1"
+            android:text="Дата"
+            android:textColor="#0000ff"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/valueComment"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="Комментарий"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+
+
+
+
+</TableLayout>

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
@@ -19,6 +20,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NP = "np";
     public static final String COLUMN_GSM = "gsm";
     public static final String COLUMN_COMMENT = "comment";
+    public static final String COLUMN_MILEAGE = "mileage";
 
     private static final String SQL_CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME +
@@ -29,6 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_NP + " INTEGER, " +
                     COLUMN_GSM + " INTEGER, " +
                     COLUMN_COMMENT + " TEXT" +
+                    COLUMN_MILEAGE + "INTEGER" +
                     ");";
 
     public DataBaseHelper(Context context){
@@ -45,7 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
     }
-    public void addData(String date,int profit,int np,int gsm,String comment) {
+    public void addData(String date,int profit,int np,int gsm,String comment,int mileage) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_DATE,date);
@@ -53,6 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NP,np);
         values.put(COLUMN_GSM,gsm);
         values.put(COLUMN_COMMENT,comment);
+        values.put(COLUMN_MILEAGE,mileage);
         db.insert(TABLE_NAME,null,values);
         db.close();
     }
@@ -71,8 +75,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return taxis;
     }
-    public ArrayList<Taxi> getTaxis(){
-        ArrayList<Taxi>taxis = new ArrayList<Taxi>();
+    public List<Taxi> getTaxis(){
+        List<Taxi>taxis = new ArrayList<Taxi>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
         if (cursor.moveToNext()){
@@ -83,7 +87,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PROFIT)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NP)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GSM)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_COMMENT))
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_COMMENT)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MILEAGE))
                 ));
             }while (cursor.moveToNext());
         }

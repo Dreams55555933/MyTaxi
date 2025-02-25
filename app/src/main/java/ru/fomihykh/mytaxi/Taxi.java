@@ -14,14 +14,17 @@ public class Taxi {
     private int np;
     private int gsm;
     private String comment;
+    private int mileage;
 
-    public Taxi(long id,String date,int profit,int np,int gsm,String comment){
+    public Taxi(long id,String date,int profit,int np,int gsm,String comment,int mileage){
         this.id=id;
         this.date=date;
         this.profit=profit;
         this.np=np;
         this.gsm=gsm;
         this.comment=comment;
+        this.mileage=mileage;
+
     }
 
     public void setId(long id) {
@@ -72,4 +75,11 @@ public class Taxi {
         return comment;
     }
 
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
 }
